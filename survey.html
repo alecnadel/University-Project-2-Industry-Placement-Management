@@ -1,0 +1,197 @@
+{% extends "root.html" %} {% block content %}
+<form action="/company/survey" method="POST" class="needs-validation w-75 px-5 py-2 bg-light mx-auto mt-4" novalidate>
+  <div class="row pb-1 fs-4 text-primary">Industry Host Initial Survey</div>
+  <div class="row pb-3">
+    <div class="form-group col-md-6 required">
+      <label for="companyName">Company Name</label>
+      <input type="text" class="form-control" id="companyName" name="companyName" value="{{company[1]}}" maxlength="50"
+        required />
+      <div class="invalid-feedback">Please enter a valid company name</div>
+    </div>
+
+    <div class="form-group col-md-6 required">
+      <label for="contactName">Contact Name</label>
+      <input type="text" class="form-control" id="contactName" name="contactName" value="{{company[2]}}" required
+        maxlength="50" />
+      <div class="invalid-feedback">Please enter a valid contact name</div>
+    </div>
+  </div>
+  <div class="row pb-3">
+    <div class="form-group col-md-6 required">
+      <label for="contactNumber">Contact Number</label>
+      <input type="text" class="form-control" id="contactNumber" name="contactNumber"
+        pattern="^([(]{1})([0]\d{1,3})([)]{1})([- ]{0,1})(\d{3})\4(\d{3,4})$|^([0]\d{1,3})([- ]{0,1})(\d{3})\8(\d{3,4})$"
+        value="{{company[3]}}" required />
+      <div class="invalid-feedback">Please enter a valid phone number</div>
+    </div>
+
+    <div class="form-group col-md-6 required">
+      <label for="contactEmail">Contact Email</label>
+      <input type="email" class="form-control" id="contactEmail" name="contactEmail" value="{{company[4]}}" required
+        maxlength="50" />
+      <div class="invalid-feedback">Please enter a valid email</div>
+    </div>
+  </div>
+  <div class="row pb-3">
+    <div class="form-group col-md-6 required">
+      <label for="techName">Technical Contact Name</label>
+      <input type="text" class="form-control" id="techName" name="techName" placeholder="Technical Contact Name"
+        required maxlength="50" />
+      <div class="invalid-feedback">Please enter a valid contact name</div>
+    </div>
+    <div class="form-group col-md-6 required">
+      <label for="techNumber">Technical Contact Number</label>
+      <input type="text" class="form-control" id="techNumber" name="techNumber"
+        pattern="^([(]{1})([0]\d{1,3})([)]{1})([- ]{0,1})(\d{3})\4(\d{3,4})$|^([0]\d{1,3})([- ]{0,1})(\d{3})\8(\d{3,4})$"
+        placeholder="Technical Contact Number" required />
+      <div class="invalid-feedback">Please enter a valid phone number</div>
+    </div>
+  </div>
+  <div class="row pb-3">
+    <div class="form-group col-md-6 required">
+      <label for="techEmail">Technical Contact Email</label>
+      <input type="email" class="form-control" id="techEmail" name="techEmail" placeholder="Technical Contact Email"
+        required maxlength="50" />
+      <div class="invalid-feedback">Please enter a valid email</div>
+    </div>
+    <div class="form-group col-md-6 required">
+      <label for="placement">How many placements you are proposing?</label>
+      <select id="placement" class="form-select" name="placement">
+        <option value="1">1</option>
+        <option value="2">2</option>
+      </select>
+      <div class="invalid-feedback">Please make a selection</div>
+    </div>
+  </div>
+  <div class="row pb-3">
+    <div class="form-group col-md-6 required">
+      <label for="attendance">
+        Will someone from your orgnization be able to attend the networking
+        session on the 19th of May from 4-6pm at Lincoln University?</label>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="yes" name="attendance" value="yes" checked/>
+        <label class="form-check-label" for="yes"> Yes</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" id="no" name="attendance" value="no" />
+        <label class="form-check-label" for="no"> No</label>
+      </div>
+    </div>
+
+    <div class="invalid-feedback">Please make a selection</div>
+  </div>
+
+  <div class="row pb-3">
+    <div class="form-group col-md-12 required">
+      <label for="projectDesc">Project Description Or Enter "Project TBC"</label>
+      <input type="textarea" class="form-control survey__textarea" id="projectDesc" name="projectDesc"
+        placeholder="Describe your project..." required maxlength="255" />
+      <div class="invalid-feedback">
+        Please give project description Or Enter "Project TBC"
+      </div>
+    </div>
+  </div>
+  <div>
+    <label for="">Please select skills/technologies your proposed project require:</label>
+    <div class="col-md-8 form-group required">
+      <!-- first dropdowm -->
+      <div class="survey__tech">
+        <select class="form-control tech" name="tech1" id="select" onchange="disable(this.value)" required>
+          <option value="" selected disabled>1st preferred technology</option>
+          {% for tech in teches %}
+          <option id="{{tech[1]}}" value="{{tech[0]}}">{{tech[1]}}</option>
+          {% endfor %}
+        </select>
+        <div class="invalid-feedback">Please select</div>
+      </div>
+
+      <!-- second dropdown -->
+      <div class="survey__tech">
+        <select class="form-control tech" name="tech2" id="tech2" onchange="disable(this.value)" required>
+          <option value="" selected disabled>2nd preferred technology</option>
+          {% for tech in teches %}
+          <option id="{{tech[1]}}" value="{{tech[0]}}">{{tech[1]}}</option>
+          {% endfor %}
+        </select>
+        <div class="invalid-feedback">Please select</div>
+      </div>
+      <!-- third dropdown -->
+      <div class="survey__tech">
+        <select class="form-control tech" name="tech3" id="tech3" onchange="disable(this.value)" required>
+          <option value="" selected disabled>3rd preferred technology</option>
+          {% for tech in teches %}
+          <option id="{{tech[1]}}" value="{{tech[0]}}">{{tech[1]}}</option>
+          {% endfor %}
+        </select>
+        <div class="invalid-feedback">Please select</div>
+      </div>
+      <!-- fourth dropdown -->
+      <div class="survey__tech">
+        <select class="form-control tech" name="tech4" id="tech4" onchange="disable(this.value)">
+          <option value="" selected>4th preferred technology(optional)</option>
+          {% for tech in teches %}
+          <option id="{{tech[1]}}" value="{{tech[0]}}">{{tech[1]}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <!-- fifth dropdown -->
+      <div class="survey__tech">
+        <select class="form-control tech" name="tech5" id="tech5">
+          <option value="" selected>5th preferred technology(optional)</option>
+          {% for tech in teches %}
+          <option id="{{tech[1]}}" value="{{tech[0]}}">{{tech[1]}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button id="reset_tech" class="btn btn-primary btn-sm" onclick="selectreset()">
+        Reset preference
+      </button>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end pt-3">
+    <button type="submit" class="btn--submit btn btn-primary btn-sm">
+      Submit
+    </button>
+    <button id="reset" type="button" class="btn--reset btn btn-primary btn-sm" onclick="formReset()" value="Reset form">
+      Reset
+    </button>
+  </div>
+</form>
+
+<script>
+  function formReset() {
+    a = document.getElementsByClassName("form-control");
+    for (let i = 0; i < a.length; i++) {
+      a[i].value = "";
+    }
+  }
+
+  // student survey reset tech preference
+  function selectreset() {
+    select = document.getElementsByClassName("form-control tech");
+    for (let i = 0; i < select.length; i++) {
+      select[i].value = "";
+    }
+
+    for (let j = 0; j < select.length; j++) {
+      for (let k = 0; k < select[j].length; k++) {
+        select[j][k].style.display = "block";
+      }
+    }
+  }
+  // student survey html -hide option selected by previous dropdown box
+  function disable(val) {
+    select = document.getElementsByClassName("form-control tech");
+    for (let j = 0; j < select.length; j++) {
+      for (let k = 0; k < select[j].length; k++) {
+        a = select[j][k].value;
+        if (val == a) {
+          select[j][k].style.display = "none";
+        }
+      }
+    }
+  }
+</script>
+
+{% endblock %}

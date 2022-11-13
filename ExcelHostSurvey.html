@@ -1,0 +1,59 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+<div class="container submit_CV">
+</br>
+    <h2 style="margin-left: -200px;margin-top: 100px;" >Submit Excel Host Survey Results</h2>
+</br></br></br>
+    
+    <form action="{{url_for('admin_module.LoadExcelHostData')}}" enctype = "multipart/form-data" method="POST" class="row g-3"  >
+        <div class="col-md-12 form-group required ">
+            <p>
+                The excel file can be reload and the changes made will be automatically updated.<br>
+            </p>
+            <a href="/static/excel/Industry survey.xlsx">example excel file.(for sheet1:IndustrySurvey)</a>
+        </div>
+
+        <div class="col-md-12 form-group required ">
+            <label for="HostResponces">Upload host survey excel file:</label>
+            <input type="file" class="form-control"  id="HostResponces" name="HostResponces" accept=".xlsx, .xls" value="upload">
+        </div>
+        <div>  
+            <a id="filepath" href="#" target="_blank"><span id="filename"></span></a>
+        </div>
+    </br>
+        <div >
+            <button type="submit" class="btn btn-primary btn-sm" id="submit">Submit</button>
+        </div>
+    </form>
+</br></br>
+   </div>
+
+
+<script>
+
+    const inpFile=document.getElementById("HostResponces");
+    const filename=document.getElementById("filename"); 
+    const filepath=document.getElementById("filepath");
+
+
+    inpFile.addEventListener("change",function(){
+        const file=this.files[0];
+        if (file){ 
+            const name=this.files[0].name
+            var path = (window.URL).createObjectURL(file);
+            const reader =new FileReader();
+            reader.addEventListener("load",function(){               
+                filename.innerHTML=name;
+                filepath.href=path;             
+            })
+            reader.readAsDataURL(file);
+          }
+
+    
+    });
+
+</script>
+
+    
+{% endblock %}
+

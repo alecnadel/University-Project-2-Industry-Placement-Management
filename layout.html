@@ -1,0 +1,81 @@
+{% extends "root.html" %} {% block nav %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+  <div class="container-fluid">
+   
+
+    <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link {{'active' if (request.path == '/admin/home' or request.path == '/') }}"
+            href="/admin/home">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <div class="dropdown">
+            <a class="nav-link dropdown-toggle {'active' if (request.path == '/admin/report' or request.path == '/') }}"
+              href="/admin/company" role="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+              aria-expanded="false">Company</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="/admin/company">Industry Host List</a></li>
+              <li><a class="dropdown-item" href="{{url_for('admin_module.SemesterHosts')}}">Attending Industry Host List</a></li>
+              <li><a class="dropdown-item" href="{{url_for('admin_module.LoadExcelHostData')}}">Import Industry Survey From Excel</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <!-- <li class="nav-item">
+          <a class="nav-link {{'active' if (request.path == '/admin/company' or request.path == '/') }}"
+            href="/admin/company">Company</a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link {{'active' if (request.path == '/admin/student' or request.path == '/') }}"
+            href="/admin/student">Student</a>
+          <!-- <div class="dropdown">
+            <a class="nav-link dropdown-toggle {'active' if (request.path == '/admin/student' or request.path == '/') }}"
+            href="/admin/student" role="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Student</a>
+          </div> -->
+        </li>
+        <li class="nav-item">
+          <div class="dropdown">
+            <a class="nav-link dropdown-toggle {'active' if (request.path == '/admin/report' or request.path == '/') }}"
+              href="/admin/report" role="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+              aria-expanded="false">Reports</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="/admin/report/attendance">Student Attendance report</a></li>
+              <li><a class="dropdown-item" href="{{url_for('admin_module.get_host_project_report')}}">Industry Host report</a></li>
+              <li><a class="dropdown-item" href="/admin/report/selection">Industry Student Selection report</a></li>
+              <li><a class="dropdown-item" href="/admin/report/student_background">Student Background Report</a></li>
+              <li><a class="dropdown-item" href="/admin/report/match">Matching Report For Industry Host</a></li>
+              <li><a class="dropdown-item" href="/admin/report/student_match">Matching Report For Student</a></li>
+              <li><a class="dropdown-item" href="/admin/report/placement">Placement Report</a></li>
+              <li><a class="dropdown-item" href="{{url_for('admin_module.MatchTable')}}">Matching Table</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link {{'active' if (request.path == '/admin/student' or request.path == '/') }}"
+            href="{{url_for('admin_module.SemesterSelection')}}">Semester</a>
+          
+        </li>
+      
+      </ul>
+
+      <div class="navbar-nav logo" >
+        <h3 class="Nav-logo">Industry Placement Web App</h3>
+     </div>
+
+      <ul class="navbar-nav logout">
+        <a class="btn btn-outline-light" href="{{url_for('logout')}}">logout</a>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- <div>{% block section %}{% endblock %}</div> -->
+
+<!-- <nav class="navbar fixed-bottom navbar-light bg-light justify-content-center">
+  <a class="navbar-brand" href="#">Copyright &copy; 2023 | by Challengers</a>
+</nav> -->
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "admin/layout.html" %} {% block content %}
+
+<main  role="main" class="p-5">
+  <div class="container">
+    <div class="d-flex justify-content-between mt-4 mb-2">
+        <div>
+            <h2 class="fs-4 text-primary">Student List</h2>
+        </div>
+    </div>
+
+  <table class="table table-striped table-hover ">
+      <thead class="table-primary">
+          <tr>
+
+            <th scope="col">Photo</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Placement Status</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Email</th>
+            <th scope="col">Project City</th>
+            <th scope="col">Action</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for student in student_list %}
+          <tr>
+              
+              <td>
+                <img src="{{student[4]}}" alt="" width="100px" height="100px" />
+              </td>
+              <td>{{student[1]}}</td>
+              <td>{{student[2]}}</td> 
+
+              <td>{% if student[3]==1 %}Yes {% else %} No {% endif %}</td>    
+              
+              <td>{{student[5]}}</td>    
+              <td>{{student[6]}}</td>
+           
+              <td>{{student[12]}}</td>
+              
+              
+              </td>
+              <td>
+                <div class="dropdown">
+                  <button
+                    class="btn-sm btn-outline dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li>
+                      <a class="dropdown-item text-success" href="/admin/student/{{student[0]}}/update"><strong>Edit</strong></a>
+                    </li>
+                    <li>
+                      {% if student[9] != None %}
+                      <a class="dropdown-item text-success" href="{{student[9]}}" ><strong>View CV</strong></a>
+                      {% else %}
+                      <a class="dropdown-item text-danger" href="#" ><strong>No Uploaded CV</strong></a> {% endif %}
+                     
+                    </li>
+                    <li>
+                      <a class="dropdown-item text-success" 
+                        href="{{url_for('admin_module.Admin_Student_Host_Selection',Student_id=student[0])}}" >
+                        <strong>Student Selection Form</strong>
+                      </a>
+                    </li>
+                    {% if student[3]==0 %}
+                    <li>
+                      <a class="dropdown-item text-success" href="{{url_for('admin_module.student_matching_edit',student_id=student[0])}}" ><strong>Edit Student Matches</strong></a>
+                    </li>
+                    {% endif %}
+                    
+                  </ul>
+                </div>
+              </td>
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</main>
+{% endblock %}

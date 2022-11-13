@@ -1,0 +1,53 @@
+{% extends "student/layout.html" %}
+{% block content %}
+<div class="container submit_CV">
+</br>
+    <h2 style="margin-left: -200px;margin-top: 100px;" >Submit your CV</h2>
+</br></br></br>
+ 
+    <form action="/student/personal/submit_CV" enctype = "multipart/form-data" method="POST" class="row g-3"  >
+       
+        <div class="col-md-12 form-group required ">
+            <label for="CV">Upload your CV: PDF file only</label>
+            <input type="file" class="form-control"  id="CV" name="CV" accept=".pdf" value="upload">
+        </div>
+        <div>  
+            <a id="filepath" href="#" target="_blank"><span id="filename"></span></a>
+        </div>
+    </br>
+        <div >
+            <button type="submit" class="btn btn-primary btn-sm" id="submit">Submit</button>
+        </div>
+    </form>
+</br></br>
+   </div>
+
+
+<script>
+
+    const inpFile=document.getElementById("CV");
+    const filename=document.getElementById("filename"); 
+    const filepath=document.getElementById("filepath");
+
+
+    inpFile.addEventListener("change",function(){
+        const file=this.files[0];
+        if (file){ 
+            const name=this.files[0].name
+            var path = (window.URL).createObjectURL(file);
+            const reader =new FileReader();
+            reader.addEventListener("load",function(){               
+                filename.innerHTML=name;
+                filepath.href=path;             
+            })
+            reader.readAsDataURL(file);
+          }
+
+    
+    });
+
+</script>
+
+    
+{% endblock %}
+

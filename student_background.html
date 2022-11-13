@@ -1,0 +1,44 @@
+{% extends "admin/layout.html" %} {% block content %}
+<main role="main" class="p-5">
+    <div class="container" id="report">
+        <div class="d-flex justify-content-between mt-4 mb-2">
+            <div>
+                <h2 class="fs-4 text-primary">Student Background Report</h2>
+            </div>
+        </div>
+        <div>
+
+
+            <table class="table table-striped table-hover ">
+                <thead class=" table-primary">
+                    <tr>
+                        <th class="col-md-1" scope="col">Student Name</th>
+                        <th class="col-md-6" scope="col">Background Prior To Mac</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in stu_bgs %}
+                    <tr>
+                        <td>{{result[1]}} {{result[2]}}</td>
+                        <td>{{result[3]}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+
+
+
+        <script type="text/javascript" src="{{url_for('static', filename='js/PDF_generator.js')}}"></script>
+        <div>
+            <input type="button" class="btn btn-primary btn-sm" value="Generate PDF" id="PrintNow" onclick="pdf_reports('report',{
+            margin:       [0.25,0.25],
+            filename:     'background.pdf',
+            pagebreak: {mode: ['css', 'legacy'], avoid:['tr','td']},
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'A3', orientation: 'portrait' }})" />
+        </div>
+</main>
+
+{% endblock %}

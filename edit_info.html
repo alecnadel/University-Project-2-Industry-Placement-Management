@@ -1,0 +1,104 @@
+{% extends "student/layout.html" %}
+{% block content %}
+<div class="container edit_info">
+</br>
+    <h2 class="mt-3">Edit Personal Details</h2>
+    {% if student[4]==None %}
+    <img src=" ../../static/img/blank.png " style="width:6rem; height:6rem">
+    {% else %}
+    <img src="{{student[4]}}" style="width:6rem; height:6rem">
+    {% endif %}
+</br>
+ 
+    <form action="/student/personal/edit" enctype = "multipart/form-data" method="POST" class="row g-3 needs-validation edit_info" novalidate >
+        <div class="col-md-6 form-group required">
+            <label for="first_name" class="form-label">First Name</label>
+            <input type="text" class="form-control" name="first_name" id="first_name" value="{{student[0]}}" disabled>
+        </div>
+        <div class="col-md-6 form-group required">
+            <label for="last_name" class="form-label">Last Name</label>
+            <input type="text" class="form-control" name="last_name" id="last_name"  value="{{student[1]}}" disabled>
+        </div>
+        <div class="col-md-6 form-group required">
+            <label for="phone_number" class="form-label">Phone Number</label>
+            <input type="phone" class="form-control" name="phone_number" 
+            pattern= "^\(*([0]\d{1,3})\)*([- ]*)(\d{3,4})\2(\d{3,4}$)" 
+            id="phone_number" value="{{student[2]}}" >
+            <div class="invalid-feedback">Please enter a valid contact number</div>
+        </div>
+        <div class="col-md-6 form-group required">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" id="email" value="{{student[3]}}" >
+            <div class="invalid-feedback">Please enter a valid email address</div>
+        </div>
+        <div class="col-md-6 form-group ">
+            <label for="photo">Upload a Photo:</label>
+            <input type="file" class="form-control" id="avatar" name="photo" accept="image/png, image/jpeg" value="upload">
+          
+            <div class="image-preview" id="imagePreview">
+                <img src="" alt="Image preview" class="image-preview__image">
+                <span class="image-preview__default-text">Photo Preview</span>
+                </div>
+            
+        </div>  
+
+
+        <div >
+            <button type="submit" class="btn btn-primary btn-sm">Update</button>
+            <button type="reset" class="btn btn-primary btn-sm">Reset</button>
+        </div>
+    </form>
+    
+    <script>
+
+    const inpFile=document.getElementById("avatar");
+    
+    const previewContainer =document.getElementById("imagePreview");
+    
+    const previewImage=previewContainer.querySelector(".image-preview__image");
+  
+    const previewDefaultText=previewContainer.querySelector(".image-preview__default-text");
+    const filename=document.getElementById("filename"); 
+    const filepath=document.getElementById("filepath");
+ 
+
+    
+
+    inpFile.addEventListener("change",function(){
+        const file=this.files[0];
+        
+        if (file){
+            
+            const name=this.files[0].name
+           
+            
+            const reader =new FileReader();
+            previewDefaultText.style.display="none";
+            previewImage.style.display="block";
+            reader.addEventListener("load",function(){
+
+                
+                previewImage.setAttribute("src",this.result);
+                filename.innerHTML=name;
+                
+               
+
+
+            })
+            reader.readAsDataURL(file);
+            
+            
+          }
+        else{
+           
+            alert("you have not choose a file");//if no file, alert and after click alert , display none 
+            previewDefaultText.style.display =null; // set back to default 
+            previewImage.style.display = null;// set back to default 
+            filename.innerHTML=null;
+            
+           
+         }
+    })
+
+</script>
+{% endblock %}        

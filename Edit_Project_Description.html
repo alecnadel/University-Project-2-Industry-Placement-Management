@@ -1,0 +1,52 @@
+{% extends "admin/layout.html" %} 
+{% block content %}
+
+
+<main  role="main" class="p-5">
+    <div class="container" id="report">
+        <div class="d-flex justify-content-between mt-4 mb-2">
+            <div>
+                <h2 class="fs-4 text-primary">Industry Host And Project Report</h2>
+            </div>
+        </div>
+        
+        <table class="table table-striped table-hover ">
+            <thead class="table-primary">
+                <tr>
+                    <th class="col-md-3" scope="col">Organization Name</th>
+                    <th class="col-md-6"scope="col">Project Description</th>
+                    <th class="col-md-3" scope="col">Student Response (Yes/No)</th>
+                </tr>
+            </thead>
+            <form  action="{{url_for('admin_module.Edit_project_report')}}" method="post"
+                id="projects" name="projects">
+                <tbody>
+                    {% for update_profile in student_profile_list %}
+                    <tr>
+                        <td>{{update_profile[0]}}</td>
+                        <td>
+                            <input type="hidden" id="projectId" name="projectId" value="{{update_profile[2]}}"/>
+                            <textarea  name="ProjectDescription" id="ProjectDescription" rows="3"
+                            style="width: 100%;
+                                   height: 100%; 
+                                   box-sizing: border-box;">{{update_profile[1]}}
+                            </textarea>
+                        </td>
+                        <td></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </form>
+        </table>
+        
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-4 d-flex justify-content-center">
+                <button type="submit" form="projects" class="btn btn-primary btn-md m-2">Submit</button>
+                <button type="reset" form="projects" class="btn btn-primary btn-md m-2">Reset</button>
+            </div>
+        </div>
+
+    </div>
+</main>
+{% endblock %}

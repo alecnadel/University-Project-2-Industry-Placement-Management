@@ -1,0 +1,31 @@
+Matching Algorithm Start:
+Fetchall All_ possible_matchs FROM database.
+Group All_ possible_matchs by student ids.
+Initialize match_list 
+Initialize matched_students_ids
+Initialize company_match_limit
+
+for over all students:
+	if student_id not in matched_students_ids:
+		Select one Possible_student_matches list shortest length. 
+    if Possible_student_matches  > n: 
+       		 Append n(=3) student matches to match_list.
+		Remove these matches from All_ possible_matchs
+		Update company_curent_match_count
+	else:
+		Append all Possible_student_matches for student to match_list.
+		Remove these matches from All_ possible_matchs
+        Update company_curent_match_count
+	Append student id to matched_students_ids list
+
+Regoup All_ possible_matchs by company_id
+For over all companies:
+	If (company_match_limit – company_curent_match_count) > 0:
+        if Possible_company_matches >  (company_match_limit  – company_curent_match_count):
+            Append remain required match to react company match limit to match_list.
+            Remove these matches from All_ possible_matchs
+        Else:
+            Append remain required match to react company match limit to match_list.
+            Remove these matches from All_ possible_matchs
+UPDATE company_selections Using match_list 
+ALGORITHM COMPLETED.

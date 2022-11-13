@@ -1,0 +1,36 @@
+{% extends "student/layout.html" %}
+{% block content %}
+
+</br>
+</br>
+<div class="container">
+    <div class="d-flex justify-content-between mt-4 mb-2">
+        <div>
+            <h2 class="fs-4 text-primary">View Matching Companies</h2>
+        </div>
+    </div>
+
+    <table class="table table-striped table-hover ">
+        <thead class=" table-primary">
+            <tr>
+                
+                <th scope="col">Company Name</th>
+                <th scope="col">Project Description</th>
+                <th scope="col">Tech Mentor</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for matched in companies %}
+            <tr>
+                
+                <td>{{matched[2]}}</td>
+                <td>{{matched[3]}}</td>
+                <td>{{matched[4]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

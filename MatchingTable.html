@@ -1,0 +1,69 @@
+{% extends "admin/layout.html" %} {% block content %}
+<main  role="main" class="p-5">
+<div class="container">
+  <div class="d-flex justify-content-between mt-4 mb-2">
+      <div>
+          <h2 class="fs-4 text-primary">Match Report Results Table</h2>
+      </div>
+  </div>
+    <p>Table below was colour-coded with golden/yellow square is being current placements, 
+        green currently selected potential placements and blue squares being currently unselected 
+        potential placements.</p>
+
+    {% if hosts %}
+      <form action="{{url_for('admin_module.Reset_Match_Report')}}" name ="student_selection" 
+      method="POST" class="needs-validation" novalidate>
+          <button class="btn btn-primary btn-md-2 mb-1" type="submit">Reset Matching Report</button>
+      </form>
+
+        <table class="table table-hover ">
+           
+            <thead >
+                <tr>
+                    <th class="col" scope="col"></th>
+                    {% for student in hosts[0] %}
+                    <th class="verticalheading" scope="col"><div class="verticalheading">{{student[3]}} {{student[4]}}</div></th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for students in hosts %}
+                <tr>
+                <th class="col-md-4" scope="col">{{students[0][1]}}</th>
+                {% for student in students %}
+                    {% if student[5] == 3 %}
+                    <td class="border-dark border-1 justify-content-center"
+                        style="background-color: #f8db84;
+                               vertical-align: middle;
+                               text-align:center;">{{student[5]}}</td>
+                        
+                    {% elif student[5] == 2 %}
+                    <td class="bg-success-500 border-dark border-1 justify-content-center"
+                        style="background-color: #8dcbae ;
+                               vertical-align: middle;
+                               text-align:center;">{{student[5]}}</td>
+                    {% elif student[5] == 1 %}
+                    <td class="bg-primary-500 border-dark border-1 justify-content-center"
+                        style="background-color: #7eaef7;
+                               vertical-align: middle;
+                               text-align:center;">{{student[5]}}</td>
+                    {% else %}
+                    <th class="bg-secondary-500 border-dark border-1 justify-content-center"
+                        style="background-color: #fcfeff;
+                               vertical-align: middle;
+                               text-align:center;"></th>
+                    {% endif %}
+                {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+      
+
+       
+
+  </div>
+</main>
+{% endblock %}

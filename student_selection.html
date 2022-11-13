@@ -1,0 +1,128 @@
+{% extends "student/layout.html" %}
+{% block content %}
+
+{% if not form_complete %}
+</br></br>
+<div class="container">
+    <div class="d-flex justify-content-between mt-4 mb-2">
+        <div>
+            <h2 class="fs-4 text-primary">Student Selection Report</h2>
+        </div>
+    </div>    
+
+        <form action="/student/company/selection" method="POST" class="row g-3 needs-validation" novalidate>
+
+            <table class="table table-striped table-hover mx-auto">
+                <thead class="table-primary">
+                    <tr>
+                        <th class="col-md-3" scope="col">Company Name</th>
+                        <th class="col-md-6" scope="col">Project Description</th>
+                        <th class="col-md-3" scope="col">Student Response</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for interested in interest %}
+                    <tr>
+                        <td value="{{interested[0]}}">{{interested[1]}}</td>
+                        <td>{{interested[2]}}</td>
+
+                        <td>
+                            <input class="form-check-input" type="radio" id="response1"
+                                name="response_{{interested[0]}}" value="1" />
+                            <!--refer to the student response from python flask-->
+                            <label class="form-check-label" for="yes">Yes</label><br>
+                            <input class="form-check-input" type="radio" id="response2"
+                                name="response_{{interested[0]}}" value="0" checked="checked" />
+                            <!--default as none-->
+                            <label class="form-check-label" for="no">No</label>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div >
+                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+
+                <button type="reset" class="btn btn-primary btn-sm">Reset</button>
+               
+            </div>
+
+        </form>
+    
+    {% elif Not_attending  %}
+    <div>
+        You did not attend the speed networking event
+    </div>
+
+    {% else %}
+    <div class="container">
+       
+        <div class="row">
+            <div class="col mt-4 mb-2">
+                
+                <h2 class="fs-4">You have already completed the Industry host selection form</h2>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <br>
+                <span>
+                    Please Go to the "view matching companies" tab to see possible industry host placements,
+                    also please do not contact the these hosts yourself.
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <br>
+                <span>
+                    These hosts have been given your names and contact details and they will 
+                    contact you sometime within the next week when they are ready. Please give them 
+                    the opportunity to contact you first.  This will be to talk to you further, to get 
+                    to know you better and to discuss more detail about potential projects.  
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <br>
+                <span>
+                    Note that talking to a host does not commit you to working with that host.  
+                    Also note that some of the hosts on your list may not contact you as they may prefer 
+                    another student for the project.  So, please reply promptly to each host and do not 
+                    wait in case another host contacts you.  Delaying a reply may mean you miss that 
+                    opportunity (as well as being impolite) and the other host may not contact you. 
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <br>
+                <span>
+                    So, please check your email regularly - at least daily - and reply promptly to any communications.  
+                    Remember that the hosts are volunteering their time and resources to these projects and have 
+                    busy jobs, so please respect that by getting back to them promptly when they make contact.
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <br>
+                <span>
+                    When you hear from a host - or if you don't hear from any hosts in the next week - please 
+                    also let me know so that we can keep track of who has been contacted.
+                </span>
+            </div>
+        </div>
+    </div>   
+    {% endif %}
+</div>
+
+
+
+
+
+
+{% endblock %}

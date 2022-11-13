@@ -1,0 +1,76 @@
+{% extends "admin/layout.html" %} {% block content %}
+
+
+<main role="main" class="p-5">
+
+  <div class="container" id="report">
+    <div class="d-flex justify-content-between mt-4 mb-2">
+      <div>
+        <h2 class="fs-4 text-primary">Industry Host Student Selection</h2>
+      </div>
+    </div>
+
+
+    <div>
+
+      <table class="table  table-hover mx-auto">
+        <thead class="table-primary border border-dark border border-2">
+          <tr>
+            <th scope="col" class="col-md-1 text-center">Student Photo</th>
+            <th scope="col" class="col-md-2 text-center">student name</th>
+            <th scope="col-3" colspan="3" class="col-md-3 text-center">
+              suitable for industry project
+            </th>
+            <th scope="col" class="col-lg-5 text-center">additional notes</th>
+            <!-- <th scope="col">Action</th> -->
+          </tr>
+
+        </thead>
+        <tbody>
+          {% for student in students %}
+          <tr>
+            <td class="border border-dark border border-2 align-middle text-center">
+              <a>
+                <img src="{{student[1]}}" alt="{{ student[1] }}" width="100px" height="100px" />
+              </a>
+            </td>
+            <td class="border border-dark border border-2 align-middle text-center">
+              {{student[2] +' '+ student[3]}}
+            </td>
+            <td scope="col" class="border border-dark border border-2 align-middle text-center">
+              Yes
+            </td>
+            <td scope="col" class="border border-dark border border-2 align-middle text-center">
+              Maybe
+            </td>
+            <td scope="col" class="border border-dark border border-2 align-middle text-center">
+              No
+            </td>
+
+            <td class="border border-dark border border-2">
+              <!-- <span class="border border-dark border border-2"></span> -->
+            </td>
+
+
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  <div>
+    <input type="button" class="btn btn-primary btn-sm" value="Generate PDF" id="PrintNow" onclick="pdf_reports('report',
+           {margin:       [0.25,0.25],
+            filename:     'studentSelection.pdf',
+            pagebreak: {mode: ['css', 'legacy'], avoid:['tr','td']},
+            image:        { type: 'png'},
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'A4', orientation: 'portrait' }
+            })" />
+  </div>
+
+  <script type="text/javascript" src="{{url_for('static', filename='js/PDF_generator.js')}}"></script>
+</main>
+{% endblock %}
